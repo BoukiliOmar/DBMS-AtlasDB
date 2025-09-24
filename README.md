@@ -29,7 +29,7 @@ Team — AtlasDB
 Repository Structure
 --------------------
 
-ER diagram will be found in the file ER-Diagram.Drawio
+ER diagram will be found in the file ER-Diagram
 The report will be fount in the file Report.pdf
 And the source code for the report (in Latex) will be found in the file Source_code_Report.tex
 
