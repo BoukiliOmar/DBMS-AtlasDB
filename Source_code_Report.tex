@@ -1,0 +1,113 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{geometry}
+\usepackage{graphicx}   % images
+\usepackage{fancyhdr}   % headers/footers
+\usepackage{tcolorbox}
+\usepackage{listings}
+\usepackage{xcolor}
+\geometry{margin=1in}
+
+% ---------- Header ----------
+\setlength{\headheight}{36pt}
+\setlength{\headsep}{18pt}
+\renewcommand{\headrulewidth}{0.4pt}
+\fancyhf{}
+\fancyhead[L]{\includegraphics[width=0.13\textwidth, keepaspectratio]{UM6Plogo.png}}
+\fancyhead[R]{\includegraphics[width=0.13\textwidth, keepaspectratio]{CC.jpg}}
+\fancyfoot[L]{Data Management Lab}
+\fancyfoot[R]{Prof. Karima Echihabi}
+\fancyfoot[C]{Page \thepage}
+
+% ---------- Deliverable Template ----------
+\begin{document}
+\thispagestyle{empty}
+\begin{center}
+  \includegraphics[width=0.25\textwidth]{UM6Plogo.png}\hfill
+  \includegraphics[width=0.25\textwidth]{CC.jpg}
+  \vspace{1.2cm}
+
+  {\LARGE \textbf{ Moroccan National Health Services/Conceptual Design}}\\[0.6cm]
+  {\large \textbf{Data Management Course}}\\[0.2cm]
+  {\large UM6P College of Computing}\\[0.8cm]
+
+  {\normalsize \textbf{Professor:} Karima Echihabi \quad 
+   \textbf{Program:} Computer Engineering}\\[0.1cm]
+  {\normalsize \textbf{Session:} Fall 2025}\\[1cm]
+
+  \rule{0.9\textwidth}{0.5pt}\\[0.5cm]
+  {\large \textbf{Team Information}} \\[0.3cm]
+  \begin{tabular}{|l|l|}
+    \hline
+    \textbf{Team Name} & \textbf{AtlasDB}\\ \hline
+    \textbf{Member 1}  & Ahmed ENNASSIB\\ \hline
+    \textbf{Member 2}  & Abdeljalil EL ACHEHAB\\ \hline
+    \textbf{Member 3}  & Salma EL KADI \\ \hline
+    \textbf{Member 4}  & Omar El BOUKILI  \\ \hline
+    \textbf{Member 5}  & Adam El MANNANI\\ \hline
+    \textbf{Member 6}  & Housam EL GOUINA\\ \hline
+    \textbf{Repository Link} & \texttt{https://github.com/BoukiliOmar/DBMS-AtlasDB} \\ \hline
+    \hline
+  \end{tabular}
+  \rule{0.9\textwidth}{0.5pt}\\
+\end{center}
+\clearpage
+\pagestyle{fancy}
+
+% ---------- Sections for Students ----------
+\section{Introduction}
+The problem involves designing a conceptual data model for the Moroccan National Health Services (MNHS) to manage patients, staff, hospitals, departments, appointments, prescriptions, medications, insurance, billing, emergencies, and  pharmacy inventory with remarking every considerable relations between all these entities. This deliverable covers the creation of an ER diagram that addresses these core requirements by identifying entities, attributes, relationships, and constraints. It supports operational queries and future analytics , the thing that ensures an organized , enhanced and efficiently working database design for MNHS management.
+
+\section{Requirements}
+Our ERD captured many aspects and requirements of the Moroccan National Health Services (MNHS) system.\\
+\\
+\textbf{\color{blue}Starting off with the patient:}\\
+Each has an internal Patient-ID and a national CIN, plus name, birth date, blood group, sex, and phone. They can also have contact addresses.
+\\
+\textbf{\color{blue}Then we have staff:}\\
+They have a Staff-ID and fall into three types: Practitioners (with a license and specialty), Caregiving staff (with a grade and ward), and Technical staff (with their equipment and certification). All staff work in departments.
+\\
+\textbf{\color{blue}Followed by Hospitals and departments:}\\
+Hospitals have a name, city, and region. Departments belong to a hospital.
+\\
+\textbf{\color{blue}Appointments manage the relation between a patient, staff, and the department:}\\
+Appointments connect a patient, a staff member, and a department. They track the date, time, reason, and status like Scheduled or Completed.
+\\
+\textbf{\color{blue}Clinical Activities are now a central entity:}\\
+We added Clinical Activity as a central idea. It has a type, like 'Consultation' or 'Surgery', and represents any billable medical event.
+\\
+\textbf{\color{blue}Staff may issue Prescriptions and Medications for a patient on a specific date, which is one type of clinical activity:}\\
+Prescriptions are one type of clinical activity. A staff member issues them, and they can list multiple medications. Each medication has details like name, strength, and dosage.
+\\
+\textbf{\color{blue}Bills are covered by an insurance:}\\
+Bills are tied to a clinical activity. They are covered by one insurance (like CNOPS, CNSS, or private). A patient can have multiple insurances, but using more than one for a single bill is fraud.
+\\
+\textbf{\color{blue}An Emergency is the act of helping the patient:}\\
+An Emergency handles a patient in crisis, recording their arrival time, triage level, and outcome. A staff member may be assigned.
+\\
+\textbf{\color{blue}Each hospital has its supplies from a Pharmacy Inventory:}\\
+Each hospital manages a Pharmacy Inventory, tracking medication stock, reorder levels, and price. This is critical for patient care.\\
+\textbf{\color{red}How it all connects:}\\
+A Patient is linked to Staff through Appointments and Clinical Activities, ensuring we can trace their care. Prescriptions list Medications. Departments belong to Hospitals for organization. The key is that a Clinical Activity is done by a Staff member for a Patient and creates a Bill. Insurance pays the Bill.
+
+\section{Methodology}
+In order to design the ER diagram for the MNHS database, we started first by analysing the requirements we had. We listed the main entities involved in that system, such as patients, staff, hospitals, departments and others. From this step, we moved to identifying the essential attributes and the primary key of each entity, and then we tried to connect them while making sure that all key and participation constraints were respected.\\
+We followed the requirements step by step, but along the way we had to make some assumptions and decisions to make the model more manageable and realistic for us. We separated patient information from locations to allow patients to have many addresses, and we modelled all staff under one entity using an ISA relationship. We decided as well to treat appointments and prescriptions as intermediates between patients, staff and medications; so we can connect them without introducing unnecessary entities. Another assumption we made was that insurance can be considered unique by its type, so there is no need to add an id as a primary key.\\
+After these steps, we started drawing our ER diagram: we checked the requirements so that our model can match them, we discussed relationships several times, until each one of us was convinced by the final design. We also kept notes so we can track the evolution of our project to avoid losing any detail even if small.\\
+By following this methodology, we believe we were able to build a structured model for the Moroccan National Health Services. It meets the requirements and remains flexible, and it is going to be a solid basis for the next steps.
+
+\section{Implementation \& Results}
+\includegraphics[width=1.1\textwidth]{diagram.jpg}
+
+
+\section{Discussion}
+Building the ER diagram felt like solving a puzzle. The hardest part at first wasn’t the technical stuff, but getting six people to agree. We spent a lot of time debating small details, but those talks actually gave us better ideas.\\
+Over time, our understanding grew at first it was just boxes and lines, but later we saw how things connected in real life, like patients moving from appointments to activities to billing. The turning point was when we added a central “Clinical Activity” entity, which made the whole diagram clearer.\\
+In the end, the biggest lesson was about teamwork: listening, compromising, and trusting each other. The final diagram reflects not just the system we designed, but the effort we put in as a team.
+
+\section{Conclusion}
+We found that our design captures a solid foundation for the implementation and management of an MNHS’s operational data. It enhances the real-world relationships between a hospital's entities and is flexible enough to accommodate future additions.
+
+
+
+\end{document}
