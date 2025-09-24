@@ -29,18 +29,9 @@ Team — AtlasDB
 Repository Structure
 --------------------
 
-.
-├─ Conceptual Design/
-│  ├─ DMG_Project.pdf              # Generated conceptual design report (PDF)
-│  ├─ DMG_Project.tex              # LaTeX source for the report
-│  ├─ UM6P_CC_DMG_LAB2.pdf         # Course/lab guideline (read-only)
-│  └─ Figures/
-│     ├─ CC.jpg
-│     ├─ ERD.png                   # ERD image used in the report
-│     └─ UM6Plogo.png
-└─ README.md
-
-
+ER diagram will be found in the file ER-Diagram.Drawio
+The report will be fount in the file Report.pdf
+And the source code for the report (in Latex) will be found in the file Source_code_Report.tex
 Quick Start
 -----------
 - To view the final conceptual design, open Conceptual Design/DMG_Project.pdf directly.
