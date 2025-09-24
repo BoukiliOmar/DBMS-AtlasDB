@@ -13,10 +13,6 @@ Current Status
 - Phase 1 — Conceptual Design: In progress (ERD, business rules, and assumptions). This repository currently focuses on this phase.
 - Future phases will be added progressively to the same repository (see Roadmap below).
 
-Deliverables
-------------
-- Conceptual Design: Conceptual Design/
-
 Team — AtlasDB
 -----------------
 - Omar EL BOUKILI - https://github.com/BoukiliOmar
