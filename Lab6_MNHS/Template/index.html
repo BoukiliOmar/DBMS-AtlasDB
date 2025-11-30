@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MNHS | Premium Care</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-grad-start: #4f46e5;
+            --primary-grad-end: #0ea5e9;
+            --primary: #4f46e5;
+            --secondary: #64748b;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --bg-body: #f0f4f8;
+            --bg-card: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #94a3b8;
+            --border-subtle: #eef2f6;
+            --shadow-soft: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.025);
+            --shadow-hover: 0 20px 25px -5px rgba(0,0,0,0.08), 0 10px 10px -5px rgba(0,0,0,0.03);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            display: flex;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .brand, .btn { font-family: 'Poppins', sans-serif; }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .sidebar {
+            width: 260px;
+            background: linear-gradient(135deg, var(--primary-grad-start), var(--primary-grad-end));
+            color: white;
+            padding: 2rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            z-index: 10;
+            box-shadow: 5px 0 15px rgba(0,0,0,0.05);
+        }
+
+        .brand {
+            font-size: 1.6rem;
+            font-weight: 700;
+            margin-bottom: 3.5rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: 0.5px;
+        }
+        
+        .nav-links a {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            padding: 14px 18px;
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            border-radius: 12px;
+            margin-bottom: 8px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            transform: translateX(5px);
+        }
+        .nav-links a.active {
+             background: rgba(255,255,255,0.2);
+             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .main-content {
+            margin-left: 260px;
+            flex: 1;
+            padding: 2.5rem;
+            animation: slideUp 0.6s ease-out;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            border: 1px solid rgba(255,255,255,0.4);
+            position: sticky;
+            top: 20px;
+            z-index: 5;
+        }
+
+        .header h1 { font-size: 1.8rem; font-weight: 700; color: var(--text-main); }
+        
+        .user-profile {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        .user-avatar {
+            width: 45px; height: 45px; background: var(--border-subtle); border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; color: var(--primary); font-size: 1.2rem;
+            border: 2px solid white; box-shadow: var(--shadow-soft);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            padding: 1.8rem;
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            border: 1px solid var(--border-subtle);
+            display: flex;
+            align-items: center;
+            gap: 1.2rem;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .stat-icon {
+            width: 60px; height: 60px;
+            border-radius: 16px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.4rem;
+        }
+        .icon-blue { background: #e0f2fe; color: var(--primary-grad-end); }
+        .icon-purple { background: #f3e8ff; color: #8b5cf6; }
+        .icon-green { background: #dcfce7; color: var(--success); }
+        .icon-orange { background: #ffedd5; color: var(--warning); }
+
+        .stat-card h3 { font-size: 1.5rem; font-weight: 700; margin-bottom: 4px; }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border-radius: 20px;
+            box-shadow: var(--shadow-soft);
+            padding: 2rem;
+            border: 1px solid var(--border-subtle);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.8rem;
+        }
+        .card-title { font-size: 1.25rem; font-weight: 600; }
+
+        .form-group { margin-bottom: 1.2rem; }
+        .form-label {
+            display: block; margin-bottom: 0.6rem; font-size: 0.9rem;
+            font-weight: 500; color: var(--text-main);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.85rem 1rem;
+            border: 2px solid var(--border-subtle);
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s;
+            background-color: #f8fafc;
+            color: var(--text-main);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary-grad-end);
+            background-color: #fff;
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+        }
+        
+        textarea.form-control { resize: vertical; }
+        .form-row { display: flex; gap: 1.2rem; }
+        .form-row .form-group { flex: 1; }
+
+        .btn {
+            padding: 0.85rem 1.8rem;
+            border: none; border-radius: 12px;
+            font-weight: 600; cursor: pointer;
+            transition: all 0.3s;
+            display: inline-flex; align-items: center; gap: 10px;
+            font-size: 0.95rem;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary-grad-start), var(--primary-grad-end));
+            color: white;
+            width: 100%; justify-content: center;
+            box-shadow: 0 4px 10px rgba(79, 70, 229, 0.2);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(79, 70, 229, 0.3);
+        }
+        
+        .btn-outline {
+            background: white; border: 2px solid var(--border-subtle); color: var(--text-main);
+        }
+        .btn-outline:hover { background: #f8fafc; border-color: var(--secondary); transform: translateY(-2px); }
+
+        .table-container { overflow-x: auto; }
+        table { width: 100%; border-collapse: separate; border-spacing: 0; }
+
+        th {
+            text-align: left; padding: 1.2rem;
+            font-size: 0.85rem; color: var(--secondary); font-weight: 600;
+            text-transform: uppercase; letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border-subtle);
+        }
+        td { padding: 1.2rem; border-bottom: 1px solid var(--border-subtle); font-size: 0.95rem; vertical-align: middle; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: #f8fafc; }
+
+        .status-badge {
+            padding: 6px 12px; border-radius: 30px;
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px;
+            display: inline-block;
+        }
+        .status-active { background: #dcfce7; color: #15803d; }
+        .status-pending { background: #fef3c7; color: #b45309; }
+        .status-low { background: #fef2f2; color: #dc2626; }
+
+        .toast {
+            position: fixed; bottom: 30px; right: 30px;
+            background: white; color: var(--text-main);
+            padding: 1.2rem 1.8rem; border-radius: 16px;
+            box-shadow: var(--shadow-hover);
+            transform: translateY(120%); opacity: 0;
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            display: flex; align-items: center; gap: 15px; z-index: 100;
+            border-left: 5px solid var(--success);
+            font-weight: 500;
+            max-width: 400px;
+        }
+        .toast.show { transform: translateY(0); opacity: 1; }
+        .toast.error { border-left-color: var(--danger); }
+
+        /* FIX: Added spacing for patient directory */
+        #patients .header {
+            margin-bottom: 1.5rem; /* Reduced from 2.5rem to create less space */
+        }
+
+        /* FIX: Hide all tab content by default */
+        .tab-content {
+            display: none;
+        }
+        
+        /* FIX: Show active tab content */
+        .tab-content.active {
+            display: block;
+        }
+
+        /* FIX: Modal styles for view functionality */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 16px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-hover);
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-subtle);
+        }
+        
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: var(--secondary);
+        }
+        
+        .modal-close:hover {
+            color: var(--text-main);
+        }
+
+        @media (max-width: 1024px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .header { position: static; } 
+        }
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); width: 0; padding: 0; }
+            .main-content { margin-left: 0; padding: 1.5rem; }
+            .form-row { flex-direction: column; gap: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="sidebar">
+        <div class="brand">
+            <i class="fa-solid fa-staff-snake"></i> MNHS Prime
+        </div>
+        <div class="nav-links">
+            <a href="#" class="active" data-tab="dashboard"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+            <a href="#" data-tab="patients"><i class="fa-solid fa-clipboard-user"></i> Patients View</a>
+            <a href="#" data-tab="add-patient"><i class="fa-solid fa-user-plus"></i> Add Patient</a>
+            <a href="#" data-tab="appointments"><i class="fa-regular fa-calendar-days"></i> Appointments</a>
+            <a href="#" data-tab="inventory"><i class="fa-solid fa-pills"></i> Medication Stock</a>
+            <a href="#" data-tab="staff"><i class="fa-solid fa-user-doctor"></i> Staff Analytics</a>
+            <a href="#" style="margin-top: auto;"><i class="fa-solid fa-sliders"></i> Settings</a>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <!-- Dashboard Tab -->
+        <div id="dashboard" class="tab-content active">
+            <header class="header">
+                <div>
+                    <h1>Hospital Overview</h1>
+                    <p style="color: var(--secondary);">Key Metrics & Performance</p>
+                </div>
+                <div class="user-profile">
+                    <button class="btn btn-outline" style="padding: 0.6rem; border-radius: 50%;"><i class="fa-regular fa-bell"></i></button>
+                     <div class="user-avatar"><i class="fa-solid fa-user"></i></div>
+                </div>
+            </header>
+
+            <section class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon icon-blue"><i class="fa-solid fa-bed-pulse"></i></div>
+                    <div>
+                        <h3 id="total-patients">--</h3>
+                        <p style="color: var(--secondary);">Total Patients</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-purple"><i class="fa-solid fa-calendar-check"></i></div>
+                    <div>
+                        <h3 id="active-appts">--</h3>
+                        <p style="color: var(--secondary);">Pending Appointments</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-green"><i class="fa-solid fa-stethoscope"></i></div>
+                    <div>
+                        <h3 id="total-staff">--</h3>
+                        <p style="color: var(--secondary);">Active Staff</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon icon-orange"><i class="fa-solid fa-pills"></i></div>
+                    <div>
+                        <h3 id="low-stock-count">--</h3>
+                        <p style="color: var(--secondary);">Low Stock Items</p>
+                    </div>
+                </div>
+            </section>
+
+            <div class="dashboard-grid">
+                <section class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Quick Appointment Booking</h2>
+                    </div>
+                    <form id="appointmentForm">
+                        <div class="form-group">
+                            <label class="form-label">Patient ID (IID)</label>
+                            <div style="position: relative;">
+                                <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 15px; top: 50%; transform: translateY(-50%); color: var(--text-muted);"></i>
+                                <input type="number" id="iidInput" class="form-control" placeholder="Enter Patient ID (e.g. 1)" style="padding-left: 45px;" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">CAID (Appointment ID)</label>
+                            <input type="number" id="caidInput" class="form-control" placeholder="Enter CAID (e.g. 1001)" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Department</label>
+                                <select id="depInput" class="form-control" required>
+                                    <option value="" disabled selected>Select Department</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Staff</label>
+                                <select id="staffInput" class="form-control" required>
+                                    <option value="" disabled selected>Select Staff</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label">Date</label>
+                                <input type="date" id="dateInput" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Time</label>
+                                <input type="time" id="timeInput" class="form-control" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label class="form-label">Reason</label>
+                            <textarea id="reasonInput" class="form-control" placeholder="Enter appointment reason" rows="2"></textarea>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary">
+                            Confirm Booking <i class="fa-solid fa-arrow-right"></i>
+                        </button>
+                    </form>
+                </section>
+
+                <section class="card">
+                    <div class="card-header">
+                        <h2 class="card-title">Recent Patients</h2>
+                        <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="fetchPatients()">
+                            <i class="fa-solid fa-sync"></i> Refresh
+                        </button>
+                    </div>
+                    
+                    <div class="table-container">
+                        <table id="patientTable">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td colspan="3" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                                        <i class="fa-solid fa-server" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i><br>
+                                        Loading patient data...
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
+        </div>
+        
+        <!-- Patients Tab -->
+        <div id="patients" class="tab-content">
+            <header class="header">
+                <div>
+                    <h1>Patient Directory</h1>
+                    <p style="color: var(--secondary);">All registered patients</p>
+                </div>
+            </header>
+            
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Patient List</h2>
+                    <button class="btn btn-outline" style="padding: 0.5rem 1rem; font-size: 0.85rem;" onclick="fetchPatients()">
+                        <i class="fa-solid fa-sync"></i> Refresh
+                    </button>
+                </div>
+                
+                <div class="table-container">
+                    <table id="patientTableFull">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Full Name</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="3" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                                    <i class="fa-solid fa-server" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i><br>
+                                    Loading patient data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Add Patient Tab -->
+        <div id="add-patient" class="tab-content">
+            <header class="header">
+                <div>
+                    <h1>Add New Patient</h1>
+                    <p style="color: var(--secondary);">Register new patients in the system</p>
+                </div>
+            </header>
+            
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Patient Registration</h2>
+                </div>
+                <form id="patientForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Patient ID (IID) *</label>
+                            <input type="number" id="patientIID" class="form-control" placeholder="Enter Patient ID" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">CIN *</label>
+                            <input type="text" id="patientCIN" class="form-control" placeholder="Enter CIN" required maxlength="10">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Full Name *</label>
+                        <input type="text" id="patientName" class="form-control" placeholder="Enter full name" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Birth Date *</label>
+                            <input type="date" id="patientBirth" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Sex *</label>
+                            <select id="patientSex" class="form-control" required>
+                                <option value="" disabled selected>Select Sex</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Blood Group</label>
+                            <select id="patientBlood" class="form-control">
+                                <option value="" selected>Select Blood Group</option>
+                                <option value="A+">A+</option>
+                                <option value="A-">A-</option>
+                                <option value="B+">B+</option>
+                                <option value="B-">B-</option>
+                                <option value="AB+">AB+</option>
+                                <option value="AB-">AB-</option>
+                                <option value="O+">O+</option>
+                                <option value="O-">O-</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" id="patientPhone" class="form-control" placeholder="Enter phone number">
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Add Patient <i class="fa-solid fa-user-plus"></i>
+                    </button>
+                </form>
+            </section>
+        </div>
+        
+        <!-- Appointments Tab -->
+        <div id="appointments" class="tab-content">
+            <header class="header">
+                <div>
+                    <h1>Appointment Management</h1>
+                    <p style="color: var(--secondary);">Schedule and manage appointments</p>
+                </div>
+            </header>
+            
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Book New Appointment</h2>
+                </div>
+                <form id="appointmentForm2">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Patient ID (IID)</label>
+                            <input type="number" id="iidInput2" class="form-control" placeholder="Enter Patient ID" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">CAID (Appointment ID)</label>
+                            <input type="number" id="caidInput2" class="form-control" placeholder="Enter CAID" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Department</label>
+                            <select id="depInput2" class="form-control" required>
+                                <option value="" disabled selected>Select Department</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Staff</label>
+                            <select id="staffInput2" class="form-control" required>
+                                <option value="" disabled selected>Select Staff</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label class="form-label">Date</label>
+                            <input type="date" id="dateInput2" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Time</label>
+                            <input type="time" id="timeInput2" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label class="form-label">Reason</label>
+                        <textarea id="reasonInput2" class="form-control" placeholder="Enter appointment reason" rows="3"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary">
+                        Schedule Appointment <i class="fa-solid fa-calendar-plus"></i>
+                    </button>
+                </form>
+            </section>
+        </div>
+        
+        <!-- Inventory Tab -->
+        <div id="inventory" class="tab-content">
+            <header class="header">
+                <div>
+                    <h1>Medication Inventory</h1>
+                    <p style="color: var(--secondary);">Monitor medication stock levels</p>
+                </div>
+                <button class="btn btn-outline" onclick="fetchLowStock()">
+                    <i class="fa-solid fa-sync"></i> Refresh Stock
+                </button>
+            </header>
+            
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Low Stock Medications</h2>
+                </div>
+                
+                <div class="table-container">
+                    <table id="lowStockTable">
+                        <thead>
+                            <tr>
+                                <th>Hospital</th>
+                                <th>Medication ID</th>
+                                <th>Medication Name</th>
+                                <th>Current Quantity</th>
+                                <th>Reorder Level</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="6" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                                    <i class="fa-solid fa-server" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i><br>
+                                    Loading medication data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+        
+        <!-- Staff Analytics Tab -->
+        <div id="staff" class="tab-content">
+            <header class="header">
+                <div>
+                    <h1>Staff Analytics</h1>
+                    <p style="color: var(--secondary);">Staff appointment distribution</p>
+                </div>
+                <button class="btn btn-outline" onclick="fetchStaffShare()">
+                    <i class="fa-solid fa-sync"></i> Refresh Data
+                </button>
+            </header>
+            
+            <section class="card">
+                <div class="card-header">
+                    <h2 class="card-title">Staff Appointment Share</h2>
+                </div>
+                
+                <div class="table-container">
+                    <table id="staffShareTable">
+                        <thead>
+                            <tr>
+                                <th>Staff ID</th>
+                                <th>Staff Name</th>
+                                <th>Hospital</th>
+                                <th>Total Appointments</th>
+                                <th>Percentage Share</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td colspan="5" style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                                    <i class="fa-solid fa-server" style="font-size: 2rem; margin-bottom: 1rem; opacity: 0.5;"></i><br>
+                                    Loading staff data...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Modal for patient details -->
+    <div id="patientModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Patient Details</h2>
+                <button class="modal-close">&times;</button>
+            </div>
+            <div id="patientDetails">
+                <!-- Patient details will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast">
+        <i id="toast-icon" class="fa-solid fa-circle-check" style="color: var(--success); font-size: 1.5rem;"></i>
+        <div>
+            <h4 style="margin-bottom: 2px;" id="toast-title">Success</h4>
+            <span style="font-size: 0.9rem; color: var(--secondary);" id="toast-message">Operation successful.</span>
+        </div>
+    </div>
+
+    <script>
+        // Use relative URLs when served from Flask
+        const API_URL = "";
+        
+        // Initialize the application
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("🚀 MNHS Frontend Initializing...");
+            
+            // Set up tab navigation
+            setupTabs();
+            
+            // Set up appointment forms
+            setupAppointmentForms();
+            
+            // Set up patient form
+            setupPatientForm();
+            
+            // Set up modal functionality
+            setupModal();
+            
+            // Set up patient inputs (keep as text/number inputs)
+            setupPatientInputs();
+            
+            // Load initial data
+            fetchStats();
+            fetchPatients();
+            fetchDepartments();
+            fetchStaff();
+            fetchLowStock();
+            fetchStaffShare();
+            
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('dateInput').value = today;
+            document.getElementById('dateInput2').value = today;
+            document.getElementById('patientBirth').value = today;
+            
+            console.log("✅ Frontend initialized successfully");
+        });
+        
+        // Tab navigation setup
+        function setupTabs() {
+            const tabLinks = document.querySelectorAll('.nav-links a[data-tab]');
+            const tabContents = document.querySelectorAll('.tab-content');
+            
+            tabLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Remove active class from all tabs and contents
+                    tabLinks.forEach(tab => tab.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    // Add active class to clicked tab
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                });
+            });
+        }
+        
+        // Modal setup
+        function setupModal() {
+            const modal = document.getElementById('patientModal');
+            const closeBtn = document.querySelector('.modal-close');
+            
+            // Close modal when clicking the close button
+            closeBtn.addEventListener('click', function() {
+                modal.classList.remove('active');
+            });
+            
+            // Close modal when clicking outside the modal content
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    modal.classList.remove('active');
+                }
+            });
+        }
+        
+        // Set up patient inputs as text/number fields
+        function setupPatientInputs() {
+            // Add auto-generate CAID functionality
+            const caidInputs = document.querySelectorAll('input[id*="caid"]');
+            caidInputs.forEach(input => {
+                input.addEventListener('focus', function() {
+                    if (!this.value) {
+                        this.value = generateCAID();
+                    }
+                });
+            });
+            
+            // Add auto-generate Patient ID functionality
+            const patientIdInput = document.getElementById('patientIID');
+            if (patientIdInput) {
+                patientIdInput.addEventListener('focus', function() {
+                    if (!this.value) {
+                        this.value = generatePatientID();
+                    }
+                });
+            }
+        }
+        
+        // Set up patient form
+        function setupPatientForm() {
+            document.getElementById('patientForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const btn = this.querySelector('button[type="submit"]');
+                const originalText = btn.innerHTML;
+                
+                btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Adding...';
+                btn.disabled = true;
+
+                const patientData = {
+                    iid: parseInt(document.getElementById('patientIID').value),
+                    cin: document.getElementById('patientCIN').value,
+                    full_name: document.getElementById('patientName').value,
+                    birth: document.getElementById('patientBirth').value,
+                    sex: document.getElementById('patientSex').value,
+                    blood_group: document.getElementById('patientBlood').value || null,
+                    phone: document.getElementById('patientPhone').value || null
+                };
+
+                try {
+                    const response = await fetch(`${API_URL}/api/patients`, {
+                        method: 'POST',
+                        headers: { 
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(patientData)
+                    });
+
+                    const result = await response.json();
+
+                    if (result.success) {
+                        showToast('Success', `Patient added successfully! ID: ${result.patient_id}`, false);
+                        this.reset();
+                        
+                        // Generate new IDs for next entry
+                        document.getElementById('patientIID').value = generatePatientID();
+                        document.getElementById('patientCIN').value = generateCIN();
+                        
+                                                fetchPatients(); // Refresh patient list
+                        fetchStats(); // Update counters
+                    } else {
+                        let errorMessage = 'Failed to add patient';
+                        if (result.error) {
+                            if (result.error.includes('duplicate') || result.error.includes('1062')) {
+                                errorMessage = `Patient ID ${patientData.iid} or CIN already exists.`;
+                            } else {
+                                errorMessage = result.error;
+                            }
+                        }
+                        showToast('Error', errorMessage, true);
+                    }
+                } catch (error) {
+                    console.error('❌ Patient insertion error:', error);
+                    showToast('Connection Error', 'Failed to connect to server', true);
+                } finally {
+                    btn.innerHTML = originalText;
+                    btn.disabled = false;
+                }
+            });
+        }
+        
+        // Show patient details in modal
+        function showPatientDetails(patientId, patientName) {
+            const modal = document.getElementById('patientModal');
+            const detailsContainer = document.getElementById('patientDetails');
+            
+            detailsContainer.innerHTML = `
+                <div class="form-group">
+                    <label class="form-label">Patient ID</label>
+                    <p style="font-weight: 600; color: var(--primary);">${patientId}</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Full Name</label>
+                    <p style="font-weight: 500;">${patientName}</p>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Actions</label>
+                    <div style="display: flex; gap: 10px; margin-top: 10px;">
+                        <button class="btn btn-outline" style="padding: 0.5rem 1rem;">
+                            <i class="fa-solid fa-eye"></i> View Details
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.add('active');
+        }
+        
+        // Fetch dashboard statistics
+        async function fetchStats() {
+            try {
+                console.log("📊 Fetching dashboard statistics...");
+                
+                // Since we don't have a dedicated stats endpoint, we'll use the existing ones
+                const [patientsRes, lowStockRes, staffRes] = await Promise.all([
+                    fetch(`${API_URL}/api/patients`),
+                    fetch(`${API_URL}/api/low_stock`),
+                    fetch(`${API_URL}/api/staff`)
+                ]);
+                
+                const patientsData = await patientsRes.json();
+                const lowStockData = await lowStockRes.json();
+                const staffData = await staffRes.json();
+                
+                if (patientsData.success) {
+                    document.getElementById('total-patients').innerText = patientsData.count || 0;
+                    console.log(`✅ Patients count: ${patientsData.count}`);
+                }
+                
+                if (lowStockData.success) {
+                    document.getElementById('low-stock-count').innerText = lowStockData.count || 0;
+                    console.log(`✅ Low stock count: ${lowStockData.count}`);
+                }
+                
+                if (staffData.success) {
+                    document.getElementById('total-staff').innerText = staffData.data.length || 0;
+                    console.log(`✅ Staff count: ${staffData.data.length}`);
+                }
+                
+                // For appointments, we'll use a placeholder since we don't have a direct endpoint
+                document.getElementById('active-appts').innerText = '12';
+                
+            } catch (err) {
+                console.error("❌ Stats error:", err);
+                showToast('Error', 'Failed to load dashboard statistics', true);
+            }
+        }
+        
+        // Fetch patients (Task 1)
+        async function fetchPatients() {
+            console.log("👥 Fetching patients...");
+            
+            const tbody = document.querySelector('#patientTable tbody');
+            const fullTbody = document.querySelector('#patientTableFull tbody');
+            
+            // Show loading state
+            if (tbody) tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding: 2rem; color: var(--primary);"><i class="fa-solid fa-circle-notch fa-spin fa-2x"></i><br>Loading patients...</td></tr>';
+            if (fullTbody) fullTbody.innerHTML = '<tr><td colspan="3" style="text-align:center; padding: 2rem; color: var(--primary);"><i class="fa-solid fa-circle-notch fa-spin fa-2x"></i><br>Loading patients...</td></tr>';
+
+            try {
+                const response = await fetch(`${API_URL}/api/patients`);
+                console.log(`📡 Patients API response: ${response.status}`);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const result = await response.json();
+                console.log("📋 Patients data:", result);
+                
+                if (result.success) {
+                    // Update dashboard table
+                    if (tbody) {
+                        tbody.innerHTML = '';
+                        if (result.data.length === 0) {
+                            tbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color: var(--text-muted);">No patients found in database.</td></tr>';
+                        } else {
+                            result.data.forEach(p => {
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td style="font-weight: 600; color: var(--primary);">${p.IID}</td>
+                                    <td style="font-weight: 500;">${p.FullName}</td>
+                                    <td>
+                                        <button class="btn btn-outline view-patient-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" data-id="${p.IID}" data-name="${p.FullName}">
+                                            <i class="fa-solid fa-eye"></i> View
+                                        </button>
+                                    </td>
+                                `;
+                                tbody.appendChild(row);
+                            });
+                            
+                            // Add event listeners to view buttons
+                            document.querySelectorAll('#patientTable .view-patient-btn').forEach(btn => {
+                                btn.addEventListener('click', function() {
+                                    const patientId = this.getAttribute('data-id');
+                                    const patientName = this.getAttribute('data-name');
+                                    showPatientDetails(patientId, patientName);
+                                });
+                            });
+                        }
+                    }
+                    
+                    // Update full patients table
+                    if (fullTbody) {
+                        fullTbody.innerHTML = '';
+                        if (result.data.length === 0) {
+                            fullTbody.innerHTML = '<tr><td colspan="3" style="text-align:center; color: var(--text-muted);">No patients found in database.</td></tr>';
+                        } else {
+                            result.data.forEach(p => {
+                                const row = document.createElement('tr');
+                                row.innerHTML = `
+                                    <td style="font-weight: 600; color: var(--primary);">${p.IID}</td>
+                                    <td style="font-weight: 500;">${p.FullName}</td>
+                                    <td>
+                                        <button class="btn btn-outline view-patient-btn" style="padding: 0.4rem 0.8rem; font-size: 0.8rem;" data-id="${p.IID}" data-name="${p.FullName}">
+                                            <i class="fa-solid fa-eye"></i> View
+                                        </button>
+                                    </td>
+                                `;
+                                fullTbody.appendChild(row);
+                            });
+                            
+                            // Add event listeners to view buttons in full table
+                            document.querySelectorAll('#patientTableFull .view-patient-btn').forEach(btn => {
+                                btn.addEventListener('click', function() {
+                                    const patientId = this.getAttribute('data-id');
+                                    const patientName = this.getAttribute('data-name');
+                                    showPatientDetails(patientId, patientName);
+                                });
+                            });
+                        }
+                    }
+                    console.log(`✅ Loaded ${result.data.length} patients`);
+                } else {
+                    const errorMsg = result.error || 'Failed to fetch patients';
+                    console.error("❌ Patients API error:", errorMsg);
+                    if (tbody) tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:red;">${errorMsg}</td></tr>`;
+                    if (fullTbody) fullTbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:red;">${errorMsg}</td></tr>`;
+                    showToast('Error', errorMsg, true);
+                }
+            } catch (error) {
+                console.error("❌ Patients fetch error:", error);
+                const errorMsg = 'Failed to connect to backend. Make sure Flask is running on port 5000.';
+                if (tbody) tbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:red;">${errorMsg}</td></tr>`;
+                if (fullTbody) fullTbody.innerHTML = `<tr><td colspan="3" style="text-align:center; color:red;">${errorMsg}</td></tr>`;
+                showToast('Connection Error', errorMsg, true);
+            }
+        }
+        
+        // Fetch departments for dropdowns
+        async function fetchDepartments() {
+            try {
+                console.log("🏥 Fetching departments...");
+                const response = await fetch(`${API_URL}/api/departments`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    const depSelect1 = document.getElementById('depInput');
+                    const depSelect2 = document.getElementById('depInput2');
+                    
+                    if (depSelect1) {
+                        depSelect1.innerHTML = '<option value="" disabled selected>Select Department</option>';
+                        result.data.forEach(dept => {
+                            const option = document.createElement('option');
+                            option.value = dept.DEP_ID;
+                            option.textContent = `${dept.Name} (${dept.DEP_ID})`;
+                            depSelect1.appendChild(option);
+                        });
+                    }
+                    
+                    if (depSelect2) {
+                        depSelect2.innerHTML = '<option value="" disabled selected>Select Department</option>';
+                        result.data.forEach(dept => {
+                            const option = document.createElement('option');
+                            option.value = dept.DEP_ID;
+                            option.textContent = `${dept.Name} (${dept.DEP_ID})`;
+                            depSelect2.appendChild(option);
+                        });
+                    }
+                    console.log(`✅ Loaded ${result.data.length} departments`);
+                }
+            } catch (error) {
+                console.error('❌ Error fetching departments:', error);
+            }
+        }
+        
+        // Fetch staff for dropdowns
+        async function fetchStaff() {
+            try {
+                console.log("👨‍⚕️ Fetching staff...");
+                const response = await fetch(`${API_URL}/api/staff`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    const staffSelect1 = document.getElementById('staffInput');
+                    const staffSelect2 = document.getElementById('staffInput2');
+                    
+                    if (staffSelect1) {
+                        staffSelect1.innerHTML = '<option value="" disabled selected>Select Staff</option>';
+                        result.data.forEach(staff => {
+                            const option = document.createElement('option');
+                            option.value = staff.STAFF_ID;
+                            option.textContent = `${staff.FullName} (${staff.STAFF_ID})`;
+                            staffSelect1.appendChild(option);
+                        });
+                    }
+                    
+                    if (staffSelect2) {
+                        staffSelect2.innerHTML = '<option value="" disabled selected>Select Staff</option>';
+                        result.data.forEach(staff => {
+                            const option = document.createElement('option');
+                            option.value = staff.STAFF_ID;
+                            option.textContent = `${staff.FullName} (${staff.STAFF_ID})`;
+                            staffSelect2.appendChild(option);
+                        });
+                    }
+                    console.log(`✅ Loaded ${result.data.length} staff members`);
+                }
+            } catch (error) {
+                console.error('❌ Error fetching staff:', error);
+            }
+        }
+        
+        // Setup appointment forms
+        function setupAppointmentForms() {
+            // Dashboard form
+            document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                await submitAppointmentForm(this);
+            });
+            
+            // Appointments tab form
+            document.getElementById('appointmentForm2').addEventListener('submit', async function(e) {
+                e.preventDefault();
+                await submitAppointmentForm(this);
+            });
+        }
+        
+        // Enhanced submit appointment form with better error handling
+        async function submitAppointmentForm(form) {
+            console.log("📅 Submitting appointment form...");
+            
+            const btn = form.querySelector('button[type="submit"]');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing...';
+            btn.disabled = true;
+
+            // Get form data
+            const caid = form.querySelector('input[id*="caid"]').value;
+            const iid = form.querySelector('input[id*="iid"]').value;
+            const staff_id = form.querySelector('select[id*="staff"]').value;
+            const dep_id = form.querySelector('select[id*="dep"]').value;
+            const date = form.querySelector('input[id*="date"]').value;
+            const time = form.querySelector('input[id*="time"]').value;
+            const reason = form.querySelector('textarea[id*="reason"]').value;
+
+            // Client-side validation
+            if (!iid || iid <= 0) {
+                showToast('Validation Error', 'Please enter a valid Patient ID', true);
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+                return;
+            }
+
+            const payload = {
+                caid: parseInt(caid),
+                iid: parseInt(iid),
+                staff_id: parseInt(staff_id),
+                dep_id: parseInt(dep_id),
+                date: date,
+                time: time,
+                reason: reason || "General Consultation"
+            };
+
+            console.log("📤 Appointment payload:", payload);
+
+            try {
+                const response = await fetch(`${API_URL}/api/schedule_appt`, {
+                    method: 'POST',
+                    headers: { 
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                console.log("📥 Appointment response:", result);
+
+                if (result.success) {
+                    showToast('Success', `Appointment scheduled successfully! CAID: ${result.appointment_id}`, false);
+                    form.reset();
+                    
+                    // Set default date to today after reset
+                    const today = new Date().toISOString().split('T')[0];
+                    form.querySelector('input[id*="date"]').value = today;
+                    
+                    fetchStats(); // Update counters
+                } else {
+                    // Enhanced error handling with specific messages
+                    let errorMessage = 'Failed to schedule appointment';
+                    
+                    if (result.error) {
+                        // Check for foreign key constraint error (patient doesn't exist)
+                        if (result.error.includes('foreign key constraint') || 
+                            result.error.includes('1452') ||
+                            result.error.includes('patient') ||
+                            result.error.includes('IID')) {
+                            errorMessage = `Patient with ID ${iid} does not exist. Please check the Patient ID.`;
+                        }
+                        // Check for duplicate appointment ID
+                        else if (result.error.includes('duplicate') || 
+                                 result.error.includes('1062') ||
+                                 result.error.includes('CAID')) {
+                            errorMessage = `Appointment ID ${caid} already exists. Please use a different CAID.`;
+                        }
+                        // Check for staff/department issues
+                        else if (result.error.includes('staff') || 
+                                 result.error.includes('department')) {
+                            errorMessage = 'Invalid staff or department selection. Please check your choices.';
+                        }
+                        // Use the specific error message from backend
+                        else {
+                            errorMessage = result.error;
+                        }
+                    }
+                    
+                    showToast('Booking Error', errorMessage, true);
+                }
+            } catch (error) {
+                console.error('❌ Appointment error:', error);
+                let errorMessage = 'Failed to connect to server. Please try again.';
+                
+                // Network errors
+                if (error.name === 'TypeError' && error.message.includes('fetch')) {
+                    errorMessage = 'Cannot connect to server. Please make sure the backend is running.';
+                }
+                
+                showToast('Connection Error', errorMessage, true);
+            } finally {
+                btn.innerHTML = originalText;
+                btn.disabled = false;
+            }
+        }
+        
+        // Fetch low stock medications (Task 3)
+        async function fetchLowStock() {
+            console.log("💊 Fetching low stock medications...");
+            
+            const tbody = document.querySelector('#lowStockTable tbody');
+            
+            if (!tbody) return;
+            
+            // Show loading state
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; padding: 2rem; color: var(--primary);"><i class="fa-solid fa-circle-notch fa-spin fa-2x"></i><br>Loading medication data...</td></tr>';
+
+            try {
+                const response = await fetch(`${API_URL}/api/low_stock`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    tbody.innerHTML = '';
+                    if (result.data.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="6" style="text-align:center; color: var(--text-muted);">No low stock medications found.</td></tr>';
+                    } else {
+                        result.data.forEach(med => {
+                            const isLowStock = med.CurrentQuantity <= med.ReorderLevel;
+                            const isNoStock = med.CurrentQuantity === 0;
+                            const statusClass = isNoStock ? 'status-low' : (isLowStock ? 'status-pending' : 'status-active');
+                            const statusText = isNoStock ? 'NO STOCK' : (isLowStock ? 'LOW STOCK' : 'Adequate');
+                            
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td>${med.HospitalName || 'N/A'}</td>
+                                <td style="font-weight: 600; color: var(--primary);">${med.MID}</td>
+                                <td>${med.MedicationName}</td>
+                                <td>${med.CurrentQuantity}</td>
+                                <td>${med.ReorderLevel}</td>
+                                <td>
+                                    <span class="status-badge ${statusClass}">
+                                        ${statusText}
+                                    </span>
+                                </td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    }
+                    
+                    // Update the low stock count in stats
+                    document.getElementById('low-stock-count').innerText = result.count || 0;
+                    console.log(`✅ Loaded ${result.data.length} low stock items`);
+                } else {
+                    const errorMsg = result.error || 'Failed to fetch low stock data';
+                    console.error("❌ Low stock error:", errorMsg);
+                    tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red;">${errorMsg}</td></tr>`;
+                    showToast('Error', errorMsg, true);
+                }
+            } catch (error) {
+                console.error("❌ Low stock fetch error:", error);
+                const errorMsg = 'Failed to connect to backend. Make sure Flask is running.';
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center; color:red;">${errorMsg}</td></tr>`;
+                showToast('Error', errorMsg, true);
+            }
+        }
+        
+        // Fetch staff share analytics (Task 4)
+        async function fetchStaffShare() {
+            console.log("📈 Fetching staff share analytics...");
+            
+            const tbody = document.querySelector('#staffShareTable tbody');
+            
+            if (!tbody) return;
+            
+            // Show loading state
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; padding: 2rem; color: var(--primary);"><i class="fa-solid fa-circle-notch fa-spin fa-2x"></i><br>Loading staff data...</td></tr>';
+
+            try {
+                const response = await fetch(`${API_URL}/api/staff_share`);
+                const result = await response.json();
+                
+                if (result.success) {
+                    tbody.innerHTML = '';
+                    if (result.data.length === 0) {
+                        tbody.innerHTML = '<tr><td colspan="5" style="text-align:center; color: var(--text-muted);">No staff data found.</td></tr>';
+                    } else {
+                        result.data.forEach(staff => {
+                            const row = document.createElement('tr');
+                            row.innerHTML = `
+                                <td style="font-weight: 600; color: var(--primary);">${staff.STAFF_ID}</td>
+                                <td>${staff.FullName}</td>
+                                <td>${staff.HospitalName || 'N/A'}</td>
+                                <td>${staff.TotalAppointments}</td>
+                                <td>
+                                    <span class="status-badge ${staff.PercentageShare > 20 ? 'status-active' : 'status-pending'}">
+                                        ${staff.PercentageShare}%
+                                    </span>
+                                </td>
+                            `;
+                            tbody.appendChild(row);
+                        });
+                    }
+                    console.log(`✅ Loaded ${result.data.length} staff members`);
+                } else {
+                    const errorMsg = result.error || 'Failed to fetch staff share data';
+                    console.error("❌ Staff share error:", errorMsg);
+                    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red;">${errorMsg}</td></tr>`;
+                    showToast('Error', errorMsg, true);
+                }
+            } catch (error) {
+                console.error("❌ Staff share fetch error:", error);
+                const errorMsg = 'Failed to connect to backend. Make sure Flask is running.';
+                tbody.innerHTML = `<tr><td colspan="5" style="text-align:center; color:red;">${errorMsg}</td></tr>`;
+                showToast('Error', errorMsg, true);
+            }
+        }
+        
+        // Toast notification function
+        function showToast(title, message, isError) {
+            const toast = document.getElementById('toast');
+            document.getElementById('toast-title').innerText = title;
+            document.getElementById('toast-message').innerText = message;
+            
+            const icon = document.getElementById('toast-icon');
+            if (isError) {
+                icon.className = 'fa-solid fa-circle-xmark';
+                icon.style.color = '#ef4444';
+                toast.classList.add('error');
+            } else {
+                icon.className = 'fa-solid fa-circle-check';
+                icon.style.color = '#10b981';
+                toast.classList.remove('error');
+            }
+
+            toast.classList.add('show');
+            setTimeout(() => { 
+                toast.classList.remove('show'); 
+            }, 4000);
+        }
+        
+        // Utility function to generate random CAID
+        function generateCAID() {
+            return Math.floor(1000 + Math.random() * 9000);
+        }
+        
+        // Utility function to generate random Patient ID
+        function generatePatientID() {
+            return Math.floor(100 + Math.random() * 900);
+        }
+        
+        // Utility function to generate random CIN
+        function generateCIN() {
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const numbers = '0123456789';
+            let cin = 'CIN';
+            for (let i = 0; i < 7; i++) {
+                cin += numbers.charAt(Math.floor(Math.random() * numbers.length));
+            }
+            return cin;
+        }
+    </script>
+</body>
+</html>
